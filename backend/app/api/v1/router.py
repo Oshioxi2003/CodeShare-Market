@@ -12,7 +12,8 @@ from app.api.v1.endpoints import (
     admin,
     categories,
     upload,
-    support
+    support,
+    code_review,
 )
 
 api_router = APIRouter()
@@ -70,4 +71,10 @@ api_router.include_router(
     support.router,
     prefix="/support",
     tags=["Support"]
+)
+
+api_router.include_router(
+    code_review.router,
+    prefix="/code-review",
+    tags=["Code Review"]
 )

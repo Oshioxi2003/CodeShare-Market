@@ -25,6 +25,7 @@ import HelpCenterPage from './pages/HelpCenterPage';
 import ContactPage from './pages/ContactPage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
+import AdminDashboardPage from './pages/AdminDashboardPage';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -86,6 +87,7 @@ function App() {
                   <Route path="upload" element={<UploadPage />} />
                   <Route path="cart" element={<CartPage />} />
                   <Route path="checkout" element={<CheckoutPage />} />
+                  <Route path="admin" element={<AdminDashboardPage />} />
                 </Route>
               </Route>
             </Routes>

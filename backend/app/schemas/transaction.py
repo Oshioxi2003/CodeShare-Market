@@ -1,6 +1,9 @@
 from datetime import datetime
-from typing import Optional
+from datetime import datetime
+
 from pydantic import BaseModel
+
+from app.models.transaction import PaymentMethod
 
 
 class TransactionBase(BaseModel):
@@ -16,3 +19,18 @@ class TransactionBase(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class TransactionCreate(BaseModel):
+    product_id: int
+    payment_method: PaymentMethod
+
+
+class PaymentInitResponse(BaseModel):
+    transaction_id: str
+    payment_url: str
+
+
+class PaymentVerifyRequest(BaseModel):
+    transaction_id: str
+    status: str
