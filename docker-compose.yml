@@ -45,6 +45,31 @@ services:
     networks:
       - codeshare_network
 
+  backend:
+    build: ./backend
+    container_name: codeshare_backend
+    restart: always
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - codeshare_network
+
+  frontend:
+    build: ./frontend
+    container_name: codeshare_frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - codeshare_network
+
 volumes:
   mysql_data:
   redis_data:
