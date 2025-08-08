@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from app.core.database import SessionLocal
 from app.core.config import settings
 from app.core.security import decode_token
-from app.models.user import User
+from app.models.user import User, UserRole
 
 # OAuth2 scheme
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
@@ -85,7 +85,8 @@ def get_current_admin_user(
     """
     Get current admin user
     """
-    if current_user.role != "admin":
+    # role is an Enum(UserRole); compare using enum
+    if current_user.role != UserRole.ADMIN:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Not enough permissions"
@@ -99,7 +100,7 @@ def get_current_seller_user(
     """
     Get current seller user
     """
-    if current_user.role not in ["seller", "admin"]:
+    if current_user.role not in [UserRole.SELLER, UserRole.ADMIN]:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Seller permissions required"

@@ -11,7 +11,8 @@ from app.api.v1.endpoints import (
     reviews,
     admin,
     categories,
-    upload
+    upload,
+    support
 )
 
 api_router = APIRouter()
@@ -63,4 +64,10 @@ api_router.include_router(
     admin.router,
     prefix="/admin",
     tags=["Admin"]
+)
+
+api_router.include_router(
+    support.router,
+    prefix="/support",
+    tags=["Support"]
 )
