@@ -40,8 +40,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const token = localStorage.getItem('access_token');
       if (token) {
-        const userData = await authService.getMe();
-        setUser(userData as unknown as User);
+              const userData = await authService.getMe();
+      setUser(userData);
       }
     } catch (error) {
       localStorage.removeItem('access_token');
@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('refresh_token', response.refresh_token);
       
       const userData = await authService.getMe();
-      setUser(userData as unknown as User);
+      setUser(userData);
       
       toast.success('Login successful!');
       navigate('/dashboard');
