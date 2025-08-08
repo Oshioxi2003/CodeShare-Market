@@ -1,27 +1,8 @@
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { authService, User as ApiUser } from '../services/authService';
+import { authService } from '../services/authService';
 import { User } from '../types/user';
-
-interface User {
-  id: number;
-  email: string;
-  username: string;
-  full_name?: string;
-  avatar_url?: string;
-  role: string;
-  is_verified: boolean;
-  // Optional profile fields
-  bio?: string;
-  website?: string;
-  github_url?: string;
-  linkedin_url?: string;
-  // Optional seller stats
-  seller_rating?: number;
-  total_sales?: number;
-  total_earnings?: number;
-}
 
 interface AuthContextType {
   user: User | null;
@@ -59,8 +40,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const token = localStorage.getItem('access_token');
       if (token) {
-        const userData = await authService.getMe();
-        setUser(userData as unknown as User);
+              const userData = await authService.getMe();
+      setUser(userData);
       }
     } catch (error) {
       localStorage.removeItem('access_token');
@@ -77,7 +58,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('refresh_token', response.refresh_token);
       
       const userData = await authService.getMe();
-      setUser(userData as unknown as User);
+      setUser(userData);
       
       toast.success('Login successful!');
       navigate('/dashboard');

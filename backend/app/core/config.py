@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     # Database
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL",
-        "mysql+pymysql://root:password@localhost:3306/codeshare_market"
+        "mysql+pymysql://root:rootpassword@localhost:3306/codeshare_market"
     )
     
     # Redis
